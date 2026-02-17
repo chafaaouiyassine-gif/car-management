@@ -19,3 +19,5 @@ spring:
    group-id: group1
    auto-offset-reset: latest
 
+topics:
+ name: test01
