@@ -1,5 +1,6 @@
 package com.renault.garagemiscroservice.service_imp;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.renault.garagemiscroservice.dto.GarageDto;
 import com.renault.garagemiscroservice.dto.VehiculeDto;
 import com.renault.garagemiscroservice.entities.Garage;
@@ -7,6 +8,7 @@ import com.renault.garagemiscroservice.entities.Vehicule;
 import com.renault.garagemiscroservice.exceptions.EntityNotFoundException;
 import com.renault.garagemiscroservice.exceptions.MethodArgumentNotValidException;
 import com.renault.garagemiscroservice.mappers.VehiculeMapper;
+import com.renault.garagemiscroservice.producers.VehiculeProducer;
 import com.renault.garagemiscroservice.repositories.GarageRepository;
 import com.renault.garagemiscroservice.repositories.VehiculeRepository;
 import com.renault.garagemiscroservice.services.VehiculeService;
@@ -25,21 +27,25 @@ public class VehiculeServiceImp implements VehiculeService {
     VehiculeRepository vehiculeRepository;
     VehiculeMapper vehiculeMapper;
     GarageRepository garageRepository;
+    VehiculeProducer vehiculeProducer;
 
-    public VehiculeServiceImp(VehiculeRepository vehiculeRepository, VehiculeMapper vehiculeMapper, GarageRepository garageRepository) {
+    public VehiculeServiceImp(VehiculeRepository vehiculeRepository, VehiculeMapper vehiculeMapper, GarageRepository garageRepository, VehiculeProducer vehiculeProducer) {
         this.vehiculeRepository = vehiculeRepository;
         this.vehiculeMapper = vehiculeMapper;
         this.garageRepository = garageRepository;
+        this.vehiculeProducer = vehiculeProducer;
     }
 
     @Override
     @Transactional(rollbackFor ={Exception.class})
-    public void createVehicule(VehiculeDto vehiculeDto) throws MethodArgumentNotValidException, EntityNotFoundException {
+    public void createVehicule(VehiculeDto vehiculeDto) throws MethodArgumentNotValidException, EntityNotFoundException, JsonProcessingException {
         log.info("Vehicule to save : {} ",vehiculeDto);
         Garage garage=findGarageIfExists(vehiculeDto.getGarage().getId());
         Vehicule vehiculeToSave=vehiculeMapper.fromDto(vehiculeDto);
         vehiculeToSave.setGarage(garage);
         vehiculeRepository.save(vehiculeToSave);
+        vehiculeProducer.sendVehicule(vehiculeToSave);
+
     }
 
     @Override
@@ -58,7 +64,7 @@ public class VehiculeServiceImp implements VehiculeService {
 
     @Override
     @Transactional(rollbackFor ={Exception.class})
-    public void deleteVehicule(Long id) throws MethodArgumentNotValidException, EntityNotFoundException {
+    public void deleteVehicule(Integer id) throws MethodArgumentNotValidException, EntityNotFoundException {
         Optional<Vehicule> vahiculeToDelete=getVehiculeIfExists(id);
         if(vahiculeToDelete.isPresent()){
             vehiculeRepository.delete(vahiculeToDelete.get());
@@ -69,7 +75,7 @@ public class VehiculeServiceImp implements VehiculeService {
     }
 
     @Override
-    public List<VehiculeDto> getAllVehiculesByGarage(Long id) throws MethodArgumentNotValidException {
+    public List<VehiculeDto> getAllVehiculesByGarage(Integer id) throws MethodArgumentNotValidException {
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         return vehiculeRepository.findVehiculeByGarageId(id).stream().map(vehiculeMapper::toDto).toList();
     }
@@ -80,13 +86,13 @@ public class VehiculeServiceImp implements VehiculeService {
         return vehiculeRepository.findByModel(modele).stream().map(vehiculeMapper::toDto).toList();
     }
 
-    private Optional<Vehicule> getVehiculeIfExists(Long id) throws MethodArgumentNotValidException {
+    private Optional<Vehicule> getVehiculeIfExists(Integer id) throws MethodArgumentNotValidException {
         log.info("Id of vihecule to update : {} ",id);
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         return vehiculeRepository.findById(id);
     }
 
-    private Garage findGarageIfExists(Long id) throws MethodArgumentNotValidException, EntityNotFoundException {
+    private Garage findGarageIfExists(Integer id) throws MethodArgumentNotValidException, EntityNotFoundException {
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         Optional<Garage> garage=garageRepository.findById(id);
         if(garage.isEmpty()) throw new EntityNotFoundException("");

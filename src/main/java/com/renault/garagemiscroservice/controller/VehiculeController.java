@@ -1,5 +1,6 @@
 package com.renault.garagemiscroservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.renault.garagemiscroservice.dto.VehiculeDto;
 import com.renault.garagemiscroservice.exceptions.EntityNotFoundException;
 import com.renault.garagemiscroservice.exceptions.MethodArgumentNotValidException;
@@ -23,7 +24,7 @@ public class VehiculeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVehicule(@RequestBody @Valid VehiculeDto vehicule) throws MethodArgumentNotValidException, EntityNotFoundException {
+    public ResponseEntity<String> createVehicule(@RequestBody @Valid VehiculeDto vehicule) throws MethodArgumentNotValidException, EntityNotFoundException, JsonProcessingException {
         vehiculeService.createVehicule(vehicule);
         return ResponseEntity.status(HttpStatus.CREATED).body(CREATE_VEHICULE_MESSAGE);
     }
@@ -35,13 +36,13 @@ public class VehiculeController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteVehicule(@RequestParam @Valid Long id) throws EntityNotFoundException, MethodArgumentNotValidException {
+    public ResponseEntity<String> deleteVehicule(@RequestParam @Valid Integer id) throws EntityNotFoundException, MethodArgumentNotValidException {
         vehiculeService.deleteVehicule(id);
         return ResponseEntity.status(HttpStatus.OK).body(UPDATE_VEHICULE_MESSAGE);
     }
 
     @GetMapping("/by_garage")
-    public ResponseEntity<List<VehiculeDto>> getVehiculesByGarage(@RequestParam @Valid Long idGarage) throws MethodArgumentNotValidException {
+    public ResponseEntity<List<VehiculeDto>> getVehiculesByGarage(@RequestParam @Valid Integer idGarage) throws MethodArgumentNotValidException {
        List<VehiculeDto> searchVehiculeResults=vehiculeService.getAllVehiculesByGarage(idGarage);
         return ResponseEntity.status(HttpStatus.OK).body(searchVehiculeResults);
     }

@@ -7,14 +7,15 @@ import com.renault.garagemiscroservice.dto.OpeningTimeDto;
 import com.renault.garagemiscroservice.enums.DayOfWeek;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenerateValueToTest {
     public static GarageDto generateGarageDtoForCreate(){
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
-                .startyTime(LocalDate.now())
-                .endTime(LocalDate.now())
+                .startyTime(LocalTime.MIN)
+                .endTime(LocalTime.MAX)
                 .build();
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
                 .dayOfWeek(DayOfWeek.LUNDI).
@@ -36,8 +37,8 @@ public class GenerateValueToTest {
     }
     public static List<GarageDto> generateMultiGarageDtoForCreate(){
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
-                .startyTime(LocalDate.now())
-                .endTime(LocalDate.now())
+                .startyTime(LocalTime.MIN)
+                .endTime(LocalTime.MAX)
                 .build();
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
                 .dayOfWeek(DayOfWeek.LUNDI).
@@ -82,12 +83,12 @@ public class GenerateValueToTest {
     }
     public static GarageDto generateGarageDtoForUpdate(){
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
-                .id(1L)
-                .startyTime(LocalDate.now())
-                .endTime(LocalDate.now())
+                .id(1)
+                .startyTime(LocalTime.MIN)
+                .endTime(LocalTime.MAX)
                 .build();
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
+                .id(1)
                 .dayOfWeek(DayOfWeek.LUNDI).
                 openingTimeList(List.of(openingTimeDto))
                 .build();
@@ -97,7 +98,7 @@ public class GenerateValueToTest {
                 .rue("jabal kotama")
                 .ville("Settat")
                 .pays("Maroc").build();
-        return  GarageDto.builder().id(1L).name("garage 1")
+        return  GarageDto.builder().id(1).name("garage 1")
                 .address(marAdresseDto)
                 .email("test@gmail.com")
                 .telephone("0668795246")
@@ -105,25 +106,25 @@ public class GenerateValueToTest {
     }
     public static GarageDto generateGarageDtoForUpdateNotValideAddress(){
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
-                .id(1L)
-                .startyTime(LocalDate.now())
-                .endTime(LocalDate.now())
+                .id(1)
+                .startyTime(LocalTime.MIN)
+                .endTime(LocalTime.MAX)
                 .build();
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
+                .id(1)
                 .dayOfWeek(DayOfWeek.LUNDI).
                 openingTimeList(List.of(openingTimeDto))
                 .build();
 
-        return  GarageDto.builder().id(1L).name("garage 1")
+        return  GarageDto.builder().id(1).name("garage 1")
                 .email("test@gmail.com")
                 .telephone("0668795246")
                 .horaireOvertureList(List.of(horaireOvertureDto)).build();
     }
     public static GarageDto generateGarageDtoForCreateNotValideEmail(){
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
-                .startyTime(LocalDate.now())
-                .endTime(LocalDate.now())
+                .startyTime(LocalTime.MIN)
+                .endTime(LocalTime.MAX)
                 .build();
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
                 .dayOfWeek(DayOfWeek.LUNDI).

@@ -1,5 +1,6 @@
 package com.renault.garagemiscroservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class Garage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "garage_id")
-    private Long garageId;
+    private Integer garageId;
     private String name;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adresse_id")
@@ -22,5 +23,6 @@ public class Garage {
     @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL)
     private List<HoraireOverture> horaireOvertureList;
     @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Vehicule> vehicules;
 }

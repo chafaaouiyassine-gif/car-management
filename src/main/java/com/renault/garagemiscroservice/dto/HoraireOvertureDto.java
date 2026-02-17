@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Builder
 public class HoraireOvertureDto {
-    private Long id;
+    private Integer id;
     private DayOfWeek dayOfWeek;
     private List<OpeningTimeDto> openingTimeList;
 

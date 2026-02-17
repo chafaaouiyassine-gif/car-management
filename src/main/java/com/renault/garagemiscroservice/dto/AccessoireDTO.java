@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AccessoireDTO {
-    private Long id;
+    private Integer id;
     @NotBlank(message = VARIABLE_NOT_NULL_MESSAGE)
     private String nom;
     @NotBlank(message = VARIABLE_NOT_NULL_MESSAGE)

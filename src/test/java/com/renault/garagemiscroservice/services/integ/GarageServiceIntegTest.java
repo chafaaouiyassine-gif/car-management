@@ -18,7 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,6 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 
 @SpringBootTest
 @Transactional
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GarageServiceIntegTest {
     @Autowired
     ObjectMapper objectMapper;
@@ -46,25 +45,21 @@ public class GarageServiceIntegTest {
     @BeforeEach
     void setUp(){
         AdresseDto adresseDto=AdresseDto.builder()
-                .id(1L)
-                .rue("teswt")
+                .rue("street test")
                 .numero(15)
-                .ville("casablanca")
+                .ville("Casablanca")
                 .pays("Maroc")
                 .build();
-        OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalDate.now())
-                .id(1L)
-                .startyTime(LocalDate.now())
+        OpeningTimeDto openingTimeDto=OpeningTimeDto.builder()
+                .endTime(LocalTime.MAX)
+                .startyTime(LocalTime.MIN)
                 .build();
 
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
                 .dayOfWeek(DayOfWeek.LUNDI)
                 .openingTimeList(List.of(openingTimeDto))
                 .build();
         garageDto= GarageDto.builder()
-                .id(null)
                 .telephone("0584857596")
                 .email("test@gmail.com")
                 .address(adresseDto)
@@ -75,38 +70,40 @@ public class GarageServiceIntegTest {
 
 
     @Test
-@Order(1)
     void create_garage_success() throws Exception {
-        garageService.saveGarage(garageDto);
-        Optional<Garage> garage= garageRepository.findById(1L);
+        GarageDto  savedGarage=garageService.saveGarage(garageDto);
+        assertNotNull(savedGarage.getId());
+        Optional<Garage> garage= garageRepository.findById(savedGarage.getId());
         assert garage.isPresent();
-        assertEquals(garageDto.getName(),garage.get().getName());
+        assertEquals("garage 1",garage.get().getName());
     }
     @Test
     @Order(2)
     void update_garage_success() throws Exception {
-        garageService.saveGarage(garageDto);
-        garageDto.setName("test");
-        garageDto.setId(2L);
+        Garage garage=garageRepository.save(garageMapper.fromDto(garageDto));
+        assertNotNull(garage.getGarageId());
+        garageDto.setId(garage.getGarageId());
+        garageDto.setName("Test 1");
         garageService.updateGarage(garageDto);
-        Optional<Garage> garageUpdated= garageRepository.findById(2L);
-        assert garageUpdated.isPresent();
-        assertEquals("test",garageUpdated.get().getName());
+        Optional<Garage> garageUpdated= garageRepository.findById(garage.getGarageId());
+        assertTrue(garageUpdated.isPresent());
+        assertEquals("Test 1",garageUpdated.get().getName());
     }
     @Test
     @Order(3)
     void delete_garage_success() throws Exception {
-        garageService.saveGarage(garageDto);
-        garageService.deleteGarage(3L);
-        Optional<Garage> garageUpdated= garageRepository.findById(3L);
+        Garage garage=garageRepository.save(garageMapper.fromDto(garageDto));
+        assertNotNull(garage.getGarageId());
+        garageService.deleteGarage(garage.getGarageId());
+        Optional<Garage> garageUpdated= garageRepository.findById(garage.getGarageId());
         assertTrue(garageUpdated.isEmpty());
     }
     @Test
     @Order(4)
     void get_by_id_garage_success() throws Exception {
-        garageRepository.save(garageMapper.fromDto(garageDto));
-        GarageDto garage=garageService.getGarageById(4L);
-       assertNotEquals(null,garage);
+        Garage garage= garageRepository.save(garageMapper.fromDto(garageDto));
+        GarageDto chhosenGarage=garageService.getGarageById(garage.getGarageId());
+        assertNotEquals(null,chhosenGarage);
     }
     @Test
     @Order(5)
@@ -121,13 +118,13 @@ public class GarageServiceIntegTest {
         assertEquals(3, garageList.size());
         assert isSorted(garageList.stream().map(GarageDto::getId).toList());
     }
-    public static boolean isSorted(List<Long> listOfLongs) {
+    public static boolean isSorted(List<Integer> listOfLongs) {
         if (isEmpty(listOfLongs) || listOfLongs.size() == 1) {
             return true;
         }
 
-        Iterator<Long> iter = listOfLongs.iterator();
-        Long current, previous = iter.next();
+        Iterator<Integer> iter = listOfLongs.iterator();
+        Integer current, previous = iter.next();
         while (iter.hasNext()) {
             current = iter.next();
             if (previous.compareTo(current) > 0) {

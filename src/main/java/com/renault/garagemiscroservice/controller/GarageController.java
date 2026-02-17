@@ -27,9 +27,9 @@ public class GarageController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createGarage(@RequestBody @Valid GarageDto garage) throws MethodArgumentNotValidException {
-        garageService.saveGarage(garage);
-        return ResponseEntity.status(HttpStatus.CREATED).body(CREATE_SUCCESS_MESSAGE);
+    public ResponseEntity<GarageDto> createGarage(@RequestBody @Valid GarageDto garage) throws MethodArgumentNotValidException {
+        GarageDto garageDto=garageService.saveGarage(garage);
+        return ResponseEntity.status(HttpStatus.CREATED).body(garageDto);
     }
     @PutMapping("/update")
     public ResponseEntity<String> updateGarage(@RequestBody @Valid GarageDto garage) throws MethodArgumentNotValidException {
@@ -38,12 +38,12 @@ public class GarageController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteGarage(@RequestParam @NotNull Long id) throws MethodArgumentNotValidException {
+    public ResponseEntity<String> deleteGarage(@RequestParam @NotNull Integer id) throws MethodArgumentNotValidException {
         garageService.deleteGarage(id);
         return ResponseEntity.status(HttpStatus.OK).body(DELETE_SUCCESS_MESSAGE);
     }
     @GetMapping("/find")
-    public ResponseEntity<GarageDto> getGarage(@RequestParam @NotNull Long id) throws EntityNotFoundException {
+    public ResponseEntity<GarageDto> getGarage(@RequestParam @NotNull Integer id) throws EntityNotFoundException {
       GarageDto garageDto= garageService.getGarageById(id);
         return ResponseEntity.status(HttpStatus.OK).body(garageDto);
     }

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface AccessoireRepository extends JpaRepository<Accessoire,Long> {
+public interface AccessoireRepository extends JpaRepository<Accessoire,Integer> {
     @Query("SELECT accessoire FROM Accessoire accessoire WHERE accessoire.vehicule.vehiculeId= :idVehicule")
-    List<Accessoire> findAccessoireByVehiculeId(@Param("idVehicule") Long id);
+    List<Accessoire> findAccessoireByVehiculeId(@Param("idVehicule") Integer id);
 }

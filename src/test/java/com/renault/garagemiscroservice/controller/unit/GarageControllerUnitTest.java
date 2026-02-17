@@ -5,6 +5,7 @@ import com.renault.garagemiscroservice.dto.AdresseDto;
 import com.renault.garagemiscroservice.dto.GarageDto;
 import com.renault.garagemiscroservice.dto.HoraireOvertureDto;
 import com.renault.garagemiscroservice.dto.OpeningTimeDto;
+import com.renault.garagemiscroservice.entities.Garage;
 import com.renault.garagemiscroservice.enums.DayOfWeek;
 import com.renault.garagemiscroservice.services.GarageService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -44,25 +46,21 @@ class GarageControllerUnitTest {
     @BeforeEach
     void setUp(){
         AdresseDto adresseDto=AdresseDto.builder()
-                .id(1L)
                 .rue("teswt")
                 .numero(15)
                 .ville("casablanca")
                 .pays("Maroc")
                 .build();
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalDate.now())
-                .id(1L)
-                .startyTime(LocalDate.now())
+                endTime(LocalTime.MAX)
+                .startyTime(LocalTime.MIN)
                 .build();
 
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
                 .dayOfWeek(DayOfWeek.LUNDI)
                 .openingTimeList(List.of(openingTimeDto))
                 .build();
         garageDto=GarageDto.builder()
-                .id(1L)
                 .telephone("0584857596")
                 .email("test@gmail.com")
                 .address(adresseDto)
@@ -73,7 +71,7 @@ class GarageControllerUnitTest {
     @Test
     void create_garage_success() throws Exception {
         String garageDtoJson=objectMapper.writeValueAsString(garageDto);
-        doNothing().when(garageService).saveGarage(any(GarageDto.class));
+        when(garageService.saveGarage(any(GarageDto.class))).thenReturn(null);
         mockMvc.perform(post("/garage/v1/create").contentType(MediaType.APPLICATION_JSON).content(garageDtoJson)).andExpect(status().isCreated());
         verify(garageService,times(1)).saveGarage(any(GarageDto.class));
 
@@ -89,16 +87,16 @@ class GarageControllerUnitTest {
     @Test
     void delete_garage_success() throws Exception {
         String garageDtoJson=objectMapper.writeValueAsString(garageDto);
-        doNothing().when(garageService).deleteGarage(any(Long.class));
+        doNothing().when(garageService).deleteGarage(any(Integer.class));
         mockMvc.perform(delete("/garage/v1/delete?id=1").contentType(MediaType.APPLICATION_JSON).content(garageDtoJson)).andExpect(status().isOk());
-        verify(garageService,times(1)).deleteGarage(any(Long.class));
+        verify(garageService,times(1)).deleteGarage(any(Integer.class));
     }
     @Test
     void find_garage_success() throws Exception {
         String garageDtoJson=objectMapper.writeValueAsString(garageDto);
-        when(garageService.getGarageById(1L)).thenReturn(garageDto);
+        when(garageService.getGarageById(1)).thenReturn(garageDto);
         mockMvc.perform(get("/garage/v1/find?id=1").contentType(MediaType.APPLICATION_JSON).content(garageDtoJson)).andExpect(status().isOk());
-        verify(garageService,times(1)).getGarageById(any(Long.class));
+        verify(garageService,times(1)).getGarageById(any(Integer.class));
 
     }
     @Test

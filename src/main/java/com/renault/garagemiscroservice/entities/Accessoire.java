@@ -11,7 +11,7 @@ public class Accessoire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accessoire_id")
-    private Long accessoireId;
+    private Integer accessoireId;
     private String nom;
     private String description;
     private float prix;

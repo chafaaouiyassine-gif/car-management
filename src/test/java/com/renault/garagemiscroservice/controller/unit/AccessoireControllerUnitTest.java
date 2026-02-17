@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -39,25 +40,21 @@ class AccessoireControllerUnitTest {
     @BeforeEach
     void setUp(){
         AdresseDto adresseDto=AdresseDto.builder()
-                .id(1L)
                 .rue("teswt")
                 .numero(15)
                 .ville("casablanca")
                 .pays("Maroc")
                 .build();
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalDate.now())
-                .id(1L)
-                .startyTime(LocalDate.now())
+                endTime(LocalTime.MAX)
+                .startyTime(LocalTime.MIN)
                 .build();
 
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
                 .dayOfWeek(DayOfWeek.LUNDI)
                 .openingTimeList(List.of(openingTimeDto))
                 .build();
         GarageDto garageDto=GarageDto.builder()
-                .id(1L)
                 .telephone("0584857596")
                 .email("test@gmail.com")
                 .address(adresseDto)
@@ -70,7 +67,6 @@ class AccessoireControllerUnitTest {
                 .brand("Mercedess")
                 .anneeFabrication("2012")
                 .typeCarburant(TypeCarburant.DIESEL)
-                .id(1L)
                 .garage(garageDto)
                 .build();
 
@@ -101,15 +97,15 @@ class AccessoireControllerUnitTest {
     @Test
     void delete_accessoir_success() throws Exception {
         String accessoireDtoJson=objectMapper.writeValueAsString(accessoireDTO);
-        doNothing().when(accessoireService).deleteAccessoire(any(Long.class));
+        doNothing().when(accessoireService).deleteAccessoire(any(Integer.class));
         mockMvc.perform(delete("/accessoire/v1/delete?id=1").contentType(MediaType.APPLICATION_JSON).content(accessoireDtoJson)).andExpect(status().isOk());
-        verify(accessoireService,times(1)).deleteAccessoire(any(Long.class));
+        verify(accessoireService,times(1)).deleteAccessoire(any(Integer.class));
     }
     @Test
     void find_by_vehicule_success() throws Exception {
-        when(accessoireService.getAllAccessoiresByVehicule(1L)).thenReturn(List.of(accessoireDTO));
+        when(accessoireService.getAllAccessoiresByVehicule(1)).thenReturn(List.of(accessoireDTO));
         mockMvc.perform(get("/accessoire/v1/by_vehicule?idVehicule=1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        verify(accessoireService,times(1)).getAllAccessoiresByVehicule(any(Long.class));
+        verify(accessoireService,times(1)).getAllAccessoiresByVehicule(any(Integer.class));
 
     }
 }

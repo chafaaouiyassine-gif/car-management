@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AdresseDto {
-    private Long id;
+    private Integer id;
     private int numero;
     private String rue;
     private String ville;

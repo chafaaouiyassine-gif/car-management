@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface VehiculeRepository extends JpaRepository<Vehicule,Long> {
+public interface VehiculeRepository extends JpaRepository<Vehicule,Integer> {
     @Query("SELECT vehicule FROM Vehicule vehicule WHERE vehicule.garage.garageId= :idGarage")
-    List<Vehicule> findVehiculeByGarageId(@Param("idGarage") Long id);
+    List<Vehicule> findVehiculeByGarageId(@Param("idGarage") Integer id);
 
     List<Vehicule> findByModel(String model);
 }

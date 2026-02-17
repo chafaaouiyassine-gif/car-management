@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Builder
 public class GarageDto {
-    private Long id;
+    private Integer id;
     @NotBlank(message = VARIABLE_NOT_NULL_MESSAGE)
     private String name;
     @NotNull(message = VARIABLE_NOT_NULL_MESSAGE)

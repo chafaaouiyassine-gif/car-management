@@ -54,14 +54,14 @@ public class AccessoireServiceImp implements AccessoireService {
             throw new EntityNotFoundException("");
         }
     }
-    private Optional<Accessoire> getAccessoireIfExists(Long id) throws MethodArgumentNotValidException {
+    private Optional<Accessoire> getAccessoireIfExists(Integer id) throws MethodArgumentNotValidException {
         log.info("Id of accessoire to update : {} ",id);
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         return accessoireRepository.findById(id);
     }
     @Override
     @Transactional(rollbackFor ={Exception.class})
-    public void deleteAccessoire(Long id) throws MethodArgumentNotValidException, EntityNotFoundException {
+    public void deleteAccessoire(Integer id) throws MethodArgumentNotValidException, EntityNotFoundException {
         Optional<Accessoire> accessoireToDelete=getAccessoireIfExists(id);
         if(accessoireToDelete.isPresent()){
             accessoireRepository.delete(accessoireToDelete.get());
@@ -71,12 +71,12 @@ public class AccessoireServiceImp implements AccessoireService {
 
     }
     @Override
-    public List<AccessoireDTO> getAllAccessoiresByVehicule(Long id) throws MethodArgumentNotValidException {
+    public List<AccessoireDTO> getAllAccessoiresByVehicule(Integer id) throws MethodArgumentNotValidException {
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         return accessoireRepository.findAccessoireByVehiculeId(id).stream().map(accessoireMapper::toDto).toList();
     }
 
-    private Vehicule getVehiculeIfExists(Long id) throws MethodArgumentNotValidException, EntityNotFoundException {
+    private Vehicule getVehiculeIfExists(Integer id) throws MethodArgumentNotValidException, EntityNotFoundException {
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("");
         Optional<Vehicule> vehicule=vehiculeRepository.findById(id);
         if(vehicule.isEmpty()) throw new EntityNotFoundException("");

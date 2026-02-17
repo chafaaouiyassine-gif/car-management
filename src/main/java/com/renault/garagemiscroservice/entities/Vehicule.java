@@ -1,5 +1,6 @@
 package com.renault.garagemiscroservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.renault.garagemiscroservice.enums.TypeCarburant;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,7 +14,7 @@ public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vehicule_id")
-    private Long vehiculeId;
+    private Integer vehiculeId;
     private String brand;
     private String model;
     private String anneeFabrication;

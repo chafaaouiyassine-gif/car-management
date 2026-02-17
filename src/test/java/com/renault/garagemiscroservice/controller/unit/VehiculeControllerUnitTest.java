@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -37,25 +38,21 @@ class VehiculeControllerUnitTest {
     @BeforeEach
     void setUp(){
         AdresseDto adresseDto=AdresseDto.builder()
-                .id(1L)
                 .rue("teswt")
                 .numero(15)
                 .ville("casablanca")
                 .pays("Maroc")
                 .build();
         OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalDate.now())
-                .id(1L)
-                .startyTime(LocalDate.now())
+                endTime(LocalTime.MAX)
+                .startyTime(LocalTime.MIN)
                 .build();
 
         HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .id(1L)
                 .dayOfWeek(DayOfWeek.LUNDI)
                 .openingTimeList(List.of(openingTimeDto))
                 .build();
        GarageDto garageDto=GarageDto.builder()
-                .id(1L)
                 .telephone("0584857596")
                 .email("test@gmail.com")
                 .address(adresseDto)
@@ -68,7 +65,6 @@ class VehiculeControllerUnitTest {
                 .brand("Mercedess")
                 .anneeFabrication("2012")
                 .typeCarburant(TypeCarburant.DIESEL)
-                .id(1L)
                 .garage(garageDto)
                 .build();
     }
@@ -91,15 +87,15 @@ class VehiculeControllerUnitTest {
     @Test
     void delete_vehicule_success() throws Exception {
         String vehiculeDtoJson=objectMapper.writeValueAsString(vehiculeDto);
-        doNothing().when(vehiculeService).deleteVehicule(any(Long.class));
+        doNothing().when(vehiculeService).deleteVehicule(any(Integer.class));
         mockMvc.perform(delete("/vehicule/v1/delete?id=1").contentType(MediaType.APPLICATION_JSON).content(vehiculeDtoJson)).andExpect(status().isOk());
-        verify(vehiculeService,times(1)).deleteVehicule(any(Long.class));
+        verify(vehiculeService,times(1)).deleteVehicule(any(Integer.class));
     }
     @Test
     void find_by_garage_success() throws Exception {
-        when(vehiculeService.getAllVehiculesByGarage(1L)).thenReturn(List.of(vehiculeDto));
+        when(vehiculeService.getAllVehiculesByGarage(1)).thenReturn(List.of(vehiculeDto));
         mockMvc.perform(get("/vehicule/v1/by_garage?idGarage=1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        verify(vehiculeService,times(1)).getAllVehiculesByGarage(any(Long.class));
+        verify(vehiculeService,times(1)).getAllVehiculesByGarage(any(Integer.class));
 
     }
     @Test

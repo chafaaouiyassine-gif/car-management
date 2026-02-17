@@ -34,12 +34,12 @@ public class AccessoireController {
         return ResponseEntity.status(HttpStatus.OK).body(ACCESSOIRE_UPDATE_MESSAGE);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAccessoire(@RequestParam @Valid Long id) throws EntityNotFoundException, MethodArgumentNotValidException {
+    public ResponseEntity<String> deleteAccessoire(@RequestParam @Valid Integer id) throws EntityNotFoundException, MethodArgumentNotValidException {
         accessoireService.deleteAccessoire(id);
         return ResponseEntity.status(HttpStatus.OK).body(ACCESSOIRE_DELETE_MESSAGE);
     }
     @GetMapping("/by_vehicule")
-    public ResponseEntity<List<AccessoireDTO>> getAccessoireByVehicule(@RequestParam @Valid Long idVehicule) throws MethodArgumentNotValidException {
+    public ResponseEntity<List<AccessoireDTO>> getAccessoireByVehicule(@RequestParam @Valid Integer idVehicule) throws MethodArgumentNotValidException {
         List<AccessoireDTO> searcheAccessoireResult=accessoireService.getAllAccessoiresByVehicule(idVehicule);
         return ResponseEntity.status(HttpStatus.OK).body(searcheAccessoireResult);
     }

@@ -69,8 +69,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "                                 \"openingTimeList\":[" +
                 "                                                        {" +
                 "                                                            \"openingTimeId\":null," +
-                "                                                            \"startyTime\":\"2022-06-15\"," +
-                "                                                            \"endTime\":\"2022-06-16\"" +
+                "                                                            \"startyTime\":\"08:30:00\"," +
+                "                                                            \"endTime\":\"17:30:00\"" +
 
                 "                                                         }" +
                 "                                                   ]" +
@@ -89,8 +89,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "    \"id\":1" +
                 "    }" +
                 "}";
-        garageRepository.save(objectMapper.readValue(garageJson, Garage.class));
-        Garage garage=garageRepository.findById(1L).orElse(null);
+       Garage garageTocheck= garageRepository.save(objectMapper.readValue(garageJson, Garage.class));
+        Garage garage=garageRepository.findById(garageTocheck.getGarageId()).orElse(null);
         Vehicule vehiculeToSave=objectMapper.readValue(vehiculeJson, Vehicule.class);
         vehiculeToSave.setGarage(garage);
         vehiculeRepository.save(vehiculeToSave);
@@ -155,7 +155,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "        \"id\":\"1\"" +
                 "    }" +
                 "}";
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         accessoireRepository.save(accessoire);
@@ -187,7 +187,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "        \"id\":\"1\"" +
                 "    }" +
                 "}";
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         accessoireRepository.save(accessoire);
@@ -216,7 +216,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "        \"id\":\"1\"" +
                 "    }" +
                 "}";
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         accessoireRepository.save(accessoire);
@@ -245,7 +245,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "        \"id\":\"1\"" +
                 "    }" +
                 "}";
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         accessoireRepository.save(accessoire);
@@ -264,7 +264,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "        \"id\":\"1\"" +
                 "    }" +
                 "}";
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         accessoireRepository.save(accessoire);
@@ -284,18 +284,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "    }" +
                 "}";
         accessoireRepository.deleteAll();
-        Vehicule vehicule=vehiculeRepository.findById(1L).orElse(null);
+        Vehicule vehicule=vehiculeRepository.findAll().getFirst();
         Accessoire accessoire=objectMapper.readValue(accessoireJson,Accessoire.class);
         accessoire.setVehicule(vehicule);
         for(int i=0;i<3;i++){
             accessoire.setAccessoireId(null);
             accessoireRepository.save(accessoire);
         }
-
+        long totalRaws=accessoireRepository.count();
         MvcResult mvcResult=   mockMvc.perform(get("/accessoire/v1/by_vehicule?idVehicule=1").contentType(MediaType.APPLICATION_JSON))
                  .andExpect(status().isOk()).andReturn();
         List<AccessoireDTO> garagesList=objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
-        assertEquals(3,garagesList.size());
+        assertEquals(totalRaws,garagesList.size());
 
     }
 }

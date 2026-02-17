@@ -33,12 +33,13 @@ public class GarageServiceImp implements GarageService {
      * @param garage the garage to save
      */
     @Override
-    public void saveGarage(GarageDto garage) throws MethodArgumentNotValidException {
+    public GarageDto saveGarage(GarageDto garage) throws MethodArgumentNotValidException {
         log.info("garage to save : {} ",garage);
         if(Objects.isNull(garage))
             throw new MethodArgumentNotValidException("Garage invalide");
         Garage garageToSave=garageMapper.fromDto(garage);
         garageRepository.save(garageToSave);
+        return garageMapper.toDto(garageToSave);
     }
 
     /**
@@ -62,7 +63,7 @@ public class GarageServiceImp implements GarageService {
      */
 
     @Override
-    public GarageDto getGarageById(Long id) throws  EntityNotFoundException {
+    public GarageDto getGarageById(Integer id) throws  EntityNotFoundException {
         log.info("find garage by id : {} ",id);
         Optional<Garage> garage= findGarageByID(id);
         if(garage.isPresent()){
@@ -78,7 +79,7 @@ public class GarageServiceImp implements GarageService {
      * @throws MethodArgumentNotValidException if the id is null
      */
     @Override
-    public void deleteGarage(Long id) throws MethodArgumentNotValidException {
+    public void deleteGarage(Integer id) throws MethodArgumentNotValidException {
         if(Objects.isNull(id)) throw new MethodArgumentNotValidException("Id is Null");
         Optional<Garage> garage=findGarageByID(id);
         garage.ifPresent(garageRepository::delete);
@@ -103,7 +104,7 @@ public class GarageServiceImp implements GarageService {
      * @param id entity id to check
      * @return boolean
      */
-    private Optional<Garage> findGarageByID(Long id){
+    private Optional<Garage> findGarageByID(Integer id){
         if(Objects.isNull(id)) return Optional.empty();
         return garageRepository
                   .findById(id);

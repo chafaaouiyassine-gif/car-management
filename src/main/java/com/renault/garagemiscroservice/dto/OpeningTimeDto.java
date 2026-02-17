@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
 public class OpeningTimeDto {
-    private Long id;
-    private LocalDate startyTime;
-    private LocalDate endTime;
+    private Integer id;
+    private LocalTime startyTime;
+    private LocalTime endTime;
 }

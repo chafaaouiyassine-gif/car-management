@@ -14,7 +14,7 @@ public class HoraireOverture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "horaire_ouverture_id")
-    private Long horaireOuvertureId;
+    private Integer horaireOuvertureId;
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     @OneToMany(mappedBy = "horaireOverture")
