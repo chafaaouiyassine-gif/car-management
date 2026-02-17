@@ -1,0 +1,14 @@
+spring:
+ application:
+  name: renault-project
+ datasource:
+  url: 'jdbc:h2:mem:garagedb'
+  username: "renault-garage"
+  password: "garage@12-_Renault"
+ h2:
+  console:
+   enabled: true
+ jpa:
+  show-sql: true
+  hibernate:
+   ddl-auto: update
