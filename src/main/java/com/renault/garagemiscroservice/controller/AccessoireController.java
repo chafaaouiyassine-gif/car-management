@@ -2,7 +2,7 @@ package com.renault.garagemiscroservice.controller;
 
 import com.renault.garagemiscroservice.dto.AccessoireDTO;
 import com.renault.garagemiscroservice.exceptions.EntityNotFoundException;
-import com.renault.garagemiscroservice.exceptions.MethodArgumentNotValidException;
+import com.renault.garagemiscroservice.exceptions.ArgumentNotValidException;
 import com.renault.garagemiscroservice.services.AccessoireService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,22 +24,22 @@ public class AccessoireController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createAccessoire(@RequestBody @Valid AccessoireDTO accessoireDTO) throws EntityNotFoundException, MethodArgumentNotValidException {
+    public ResponseEntity<String> createAccessoire(@RequestBody @Valid AccessoireDTO accessoireDTO) throws EntityNotFoundException, ArgumentNotValidException {
         accessoireService.createAccessoire(accessoireDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(ACCESSOIRE_CREATE_MESSAGE);
     }
     @PutMapping("/update")
-    public ResponseEntity<String> updateAccessoire(@RequestBody @Valid AccessoireDTO accessoireDTO) throws EntityNotFoundException, MethodArgumentNotValidException {
+    public ResponseEntity<String> updateAccessoire(@RequestBody @Valid AccessoireDTO accessoireDTO) throws EntityNotFoundException, ArgumentNotValidException {
         accessoireService.updateAccessoire(accessoireDTO);
         return ResponseEntity.status(HttpStatus.OK).body(ACCESSOIRE_UPDATE_MESSAGE);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAccessoire(@RequestParam @Valid Integer id) throws EntityNotFoundException, MethodArgumentNotValidException {
+    public ResponseEntity<String> deleteAccessoire(@RequestParam @Valid Integer id) throws EntityNotFoundException, ArgumentNotValidException {
         accessoireService.deleteAccessoire(id);
         return ResponseEntity.status(HttpStatus.OK).body(ACCESSOIRE_DELETE_MESSAGE);
     }
     @GetMapping("/by_vehicule")
-    public ResponseEntity<List<AccessoireDTO>> getAccessoireByVehicule(@RequestParam @Valid Integer idVehicule) throws MethodArgumentNotValidException {
+    public ResponseEntity<List<AccessoireDTO>> getAccessoireByVehicule(@RequestParam @Valid Integer idVehicule) throws ArgumentNotValidException {
         List<AccessoireDTO> searcheAccessoireResult=accessoireService.getAllAccessoiresByVehicule(idVehicule);
         return ResponseEntity.status(HttpStatus.OK).body(searcheAccessoireResult);
     }

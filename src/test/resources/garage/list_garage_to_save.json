@@ -1,0 +1,285 @@
+[
+  {
+    "name": "OISIS Garage",
+    "address": {
+      "numero": 15,
+      "rue": "val fleurie",
+      "ville": "Casablanca",
+      "pays": "Maroc"
+    },
+    "telephone": "0668790439",
+    "email": "oisis.valfleuri@gmail.com",
+    "horaireOvertureList": [
+      {
+        "dayOfWeek": "LUNDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "17:30:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ANASSI Garage",
+    "address": {
+      "numero": 15,
+      "rue": "soumia",
+      "ville": "Casablanca",
+      "pays": "Maroc"
+    },
+    "telephone": "0668790439",
+    "email": "anassi.soumia@gmail.com",
+    "horaireOvertureList": [
+      {
+        "dayOfWeek": "LUNDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MARDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MERCREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "JEUDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "VENDREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "SAMEDI",
+        "openingTimeList": [
+          {
+            "startyTime": "10:00:00",
+            "endTime": "13:00:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "LISASSFA Garage",
+    "address": {
+      "numero": 15,
+      "rue": "ittihad tadira",
+      "ville": "Casablanca",
+      "pays": "Maroc"
+    },
+    "telephone": "074582546",
+    "email": "lisassfa1458@gmail.com",
+    "horaireOvertureList": [
+      {
+        "dayOfWeek": "LUNDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MARDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MERCREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "JEUDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "VENDREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "SAMEDI",
+        "openingTimeList": [
+          {
+            "startyTime": "10:00:00",
+            "endTime": "13:00:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nijma Garage",
+    "address": {
+      "numero": 54,
+      "rue": "nijma",
+      "ville": "Tanger",
+      "pays": "Maroc"
+    },
+    "telephone": "074582546",
+    "email": "nijma.tanger@gmail.com",
+    "horaireOvertureList": [
+      {
+        "dayOfWeek": "LUNDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MARDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "MERCREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "JEUDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "VENDREDI",
+        "openingTimeList": [
+          {
+            "startyTime": "08:30:00",
+            "endTime": "12:30:00"
+          },
+          {
+            "startyTime": "14:30:00",
+            "endTime": "18:30:00"
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "SAMEDI",
+        "openingTimeList": [
+          {
+            "startyTime": "10:00:00",
+            "endTime": "13:00:00"
+          }
+        ]
+      }
+    ]
+  }
+]

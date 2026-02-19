@@ -2,6 +2,8 @@ package com.renault.garagemiscroservice.dto;
 
 import com.renault.garagemiscroservice.enums.TypeCarburant;
 import static com.renault.garagemiscroservice.utils.MessageGlobale.*;
+
+import com.renault.garagemiscroservice.enums.TypeVehicule;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -18,6 +20,6 @@ public class VehiculeDto {
     private String anneeFabrication;
     @NotNull(message = VARIABLE_NOT_NULL_MESSAGE)
     private TypeCarburant typeCarburant;
-    @NotNull(message = VARIABLE_NOT_NULL_MESSAGE)
+    private TypeVehicule typeVehicule;
     private GarageDto garage;
 }

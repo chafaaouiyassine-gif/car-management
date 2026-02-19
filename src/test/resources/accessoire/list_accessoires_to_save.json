@@ -1,0 +1,32 @@
+[
+  { 
+      "nom":"accessoire 1",
+      "description":"description accessoire 1",
+      "prix":12,
+      "type":"type 1"
+  },
+  {
+    "nom":"accessoire 2",
+    "description":"description accessoire 2",
+    "prix":1225.52,
+    "type":"type 1"
+  },
+  {
+    "nom":"accessoire 3",
+    "description":"description accessoire 3",
+    "prix":7458,
+    "type":"type 1"
+  },
+  {
+    "nom":"accessoire  4",
+    "description":"description accessoire 4",
+    "prix":7452,
+    "type":"type 4"
+  },
+  {
+    "nom":"accessoire 5",
+    "description":"description accessoire 5",
+    "prix":785.25,
+    "type":"type 5"
+  }
+]

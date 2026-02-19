@@ -1,0 +1,34 @@
+[
+  {
+    "brand": "STANIA",
+    "model": "2022",
+    "anneeFabrication": "2019",
+    "typeCarburant": "DIESEL",
+    "typeVehicule": "CAMION",
+    "garage": null
+  },
+  {
+    "brand": "Mercedesse",
+    "model": "2025",
+    "anneeFabrication": "2024",
+    "typeCarburant": "DIESEL",
+    "typeVehicule": "VOITURE",
+    "garage": null
+  },
+  {
+    "brand": "BMW",
+    "model": "2026",
+    "anneeFabrication": "2015",
+    "typeCarburant": "ESSENCE",
+    "typeVehicule": "VOITURE",
+    "garage": null
+  },
+  {
+    "brand": "Tesla",
+    "model": "2025",
+    "anneeFabrication": "2024",
+    "typeCarburant": "ELECTRIQUE",
+    "typeVehicule": "VOITURE",
+    "garage": null
+  }
+]

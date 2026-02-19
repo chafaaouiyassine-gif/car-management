@@ -2,14 +2,16 @@ package com.renault.garagemiscroservice.entities;
 
 import com.renault.garagemiscroservice.enums.DayOfWeek;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "horaire-ouverture")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HoraireOverture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

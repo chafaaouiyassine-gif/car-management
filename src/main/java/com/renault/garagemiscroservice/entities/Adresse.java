@@ -2,13 +2,15 @@ package com.renault.garagemiscroservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 
 @Entity
 @Table(name = "adresse")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Adresse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
