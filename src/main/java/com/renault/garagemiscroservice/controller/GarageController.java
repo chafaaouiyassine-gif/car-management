@@ -1,8 +1,9 @@
 package com.renault.garagemiscroservice.controller;
 
 import com.renault.garagemiscroservice.dto.GarageDto;
+import com.renault.garagemiscroservice.enums.TypeVehicule;
 import com.renault.garagemiscroservice.exceptions.EntityNotFoundException;
-import com.renault.garagemiscroservice.exceptions.MethodArgumentNotValidException;
+import com.renault.garagemiscroservice.exceptions.ArgumentNotValidException;
 import com.renault.garagemiscroservice.services.GarageService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -27,18 +28,18 @@ public class GarageController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GarageDto> createGarage(@RequestBody @Valid GarageDto garage) throws MethodArgumentNotValidException {
+    public ResponseEntity<GarageDto> createGarage(@RequestBody @Valid GarageDto garage) throws ArgumentNotValidException {
         GarageDto garageDto=garageService.saveGarage(garage);
         return ResponseEntity.status(HttpStatus.CREATED).body(garageDto);
     }
     @PutMapping("/update")
-    public ResponseEntity<String> updateGarage(@RequestBody @Valid GarageDto garage) throws MethodArgumentNotValidException {
+    public ResponseEntity<String> updateGarage(@RequestBody @Valid GarageDto garage) throws ArgumentNotValidException, EntityNotFoundException {
         garageService.updateGarage(garage);
         return ResponseEntity.status(HttpStatus.OK).body(UPDATE_SUCCESS_MESSAGE);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteGarage(@RequestParam @NotNull Integer id) throws MethodArgumentNotValidException {
+    public ResponseEntity<String> deleteGarage(@RequestParam @NotNull Integer id) throws ArgumentNotValidException, EntityNotFoundException {
         garageService.deleteGarage(id);
         return ResponseEntity.status(HttpStatus.OK).body(DELETE_SUCCESS_MESSAGE);
     }
@@ -57,5 +58,9 @@ public class GarageController {
         List<GarageDto> garages=garageService.getAllGarageSorted(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(garages);
     }
-
+    @GetMapping("/find_garages")
+    public ResponseEntity<List<GarageDto>> getAllGarage(@RequestParam @NotNull TypeVehicule type,@RequestParam @NotNull Integer accessoireID) throws  ArgumentNotValidException {
+        List<GarageDto> garages= garageService.getAllGarageByTypeVehiculeORAccessoire(type,accessoireID);
+        return ResponseEntity.status(HttpStatus.OK).body(garages);
+    }
 }

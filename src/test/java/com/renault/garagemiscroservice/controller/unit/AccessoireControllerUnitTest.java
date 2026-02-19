@@ -1,82 +1,43 @@
 package com.renault.garagemiscroservice.controller.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.renault.garagemiscroservice.controller.AccessoireController;
 import com.renault.garagemiscroservice.dto.*;
-import com.renault.garagemiscroservice.enums.DayOfWeek;
-import com.renault.garagemiscroservice.enums.TypeCarburant;
 import com.renault.garagemiscroservice.services.AccessoireService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
+import static com.renault.garagemiscroservice.utils.DtoAndEntitiesGenerator.generateAccessoireDto;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(AccessoireController.class)
 class AccessoireControllerUnitTest {
     @Autowired
-    MockMvc mockMvc;
-
-    @MockBean
-    private AccessoireService accessoireService;
+    private MockMvc mockMvc;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private AccessoireService accessoireService;
 
     AccessoireDTO accessoireDTO;
 
     @BeforeEach
-    void setUp(){
-        AdresseDto adresseDto=AdresseDto.builder()
-                .rue("teswt")
-                .numero(15)
-                .ville("casablanca")
-                .pays("Maroc")
-                .build();
-        OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalTime.MAX)
-                .startyTime(LocalTime.MIN)
-                .build();
+    void setUp()  {
 
-        HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .dayOfWeek(DayOfWeek.LUNDI)
-                .openingTimeList(List.of(openingTimeDto))
-                .build();
-        GarageDto garageDto=GarageDto.builder()
-                .telephone("0584857596")
-                .email("test@gmail.com")
-                .address(adresseDto)
-                .name("garage 1")
-                .horaireOvertureList(List.of(horaireOvertureDto))
-                .build();
+        accessoireDTO=generateAccessoireDto();
 
-       VehiculeDto vehiculeDto= VehiculeDto.builder()
-                .model("2015")
-                .brand("Mercedess")
-                .anneeFabrication("2012")
-                .typeCarburant(TypeCarburant.DIESEL)
-                .garage(garageDto)
-                .build();
-
-       accessoireDTO=AccessoireDTO.builder()
-               .nom("accessoire 1")
-               .description("description 1")
-               .prix(152.52f)
-               .type("moteur")
-               .vehicule(vehiculeDto)
-               .build();
     }
     @Test
     void create_accessoire_success() throws Exception {

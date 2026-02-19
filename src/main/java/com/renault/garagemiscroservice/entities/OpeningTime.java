@@ -1,15 +1,16 @@
 package com.renault.garagemiscroservice.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "opening-time")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OpeningTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

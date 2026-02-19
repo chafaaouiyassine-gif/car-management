@@ -1,0 +1,107 @@
+{
+  "garageId": 1,
+  "name": "ANASSI Garage",
+  "address": {
+    "adresseId": 1,
+    "numero": 15,
+    "rue": "soumia",
+    "ville": "Casablanca",
+    "pays": "Maroc"
+  },
+  "telephone": "0668790439",
+  "countVehicule": 0,
+  "email": "anassi.soumia@gmail.com",
+  "horaireOvertureList": [
+    {
+      "horaireOuvertureId": 1,
+      "dayOfWeek": "LUNDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 1,
+          "startyTime": "08:30:00",
+          "endTime": "12:30:00"
+        },
+        {
+          "openingTimeId": 2,
+          "startyTime": "14:30:00",
+          "endTime": "18:30:00"
+        }
+      ]
+    },
+    {
+      "horaireOuvertureId": 2,
+      "dayOfWeek": "MARDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 3,
+          "startyTime": "08:30:00",
+          "endTime": "12:30:00"
+        },
+        {
+          "openingTimeId": 4,
+          "startyTime": "14:30:00",
+          "endTime": "18:30:00"
+        }
+      ]
+    },
+    {
+      "horaireOuvertureId": 3,
+      "dayOfWeek": "MERCREDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 5,
+          "startyTime": "08:30:00",
+          "endTime": "12:30:00"
+        },
+        {
+          "openingTimeId": 6,
+          "startyTime": "14:30:00",
+          "endTime": "18:30:00"
+        }
+      ]
+    },
+    {
+      "horaireOuvertureId": 4,
+      "dayOfWeek": "JEUDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 7,
+          "startyTime": "08:30:00",
+          "endTime": "12:30:00"
+        },
+        {
+          "openingTimeId": 8,
+          "startyTime": "14:30:00",
+          "endTime": "18:30:00"
+        }
+      ]
+    },
+    {
+      "horaireOuvertureId": 5,
+      "dayOfWeek": "VENDREDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 9,
+          "startyTime": "08:30:00",
+          "endTime": "12:30:00"
+        },
+        {
+          "openingTimeId": 10,
+          "startyTime": "14:30:00",
+          "endTime": "18:30:00"
+        }
+      ]
+    },
+    {
+      "horaireOuvertureId": 6,
+      "dayOfWeek": "SAMEDI",
+      "openingTimeList": [
+        {
+          "openingTimeId": 11,
+          "startyTime": "10:00:00",
+          "endTime": "13:00:00"
+        }
+      ]
+    }
+  ]
+}

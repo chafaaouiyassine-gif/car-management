@@ -1,77 +1,43 @@
 package com.renault.garagemiscroservice.controller.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.renault.garagemiscroservice.controller.VehiculeController;
 import com.renault.garagemiscroservice.dto.*;
-import com.renault.garagemiscroservice.enums.DayOfWeek;
-import com.renault.garagemiscroservice.enums.TypeCarburant;
 import com.renault.garagemiscroservice.services.VehiculeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
+import static com.renault.garagemiscroservice.utils.DtoAndEntitiesGenerator.generateVehiculeDto;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(VehiculeController.class)
 class VehiculeControllerUnitTest {
     @Autowired
     MockMvc mockMvc;
-    @MockBean
+    @MockitoBean
     private VehiculeService vehiculeService;
     @Autowired
     ObjectMapper objectMapper;
 
-    private VehiculeDto vehiculeDto;
-
+   VehiculeDto vehiculeDto;
     @BeforeEach
-    void setUp(){
-        AdresseDto adresseDto=AdresseDto.builder()
-                .rue("teswt")
-                .numero(15)
-                .ville("casablanca")
-                .pays("Maroc")
-                .build();
-        OpeningTimeDto openingTimeDto=OpeningTimeDto.builder().
-                endTime(LocalTime.MAX)
-                .startyTime(LocalTime.MIN)
-                .build();
-
-        HoraireOvertureDto horaireOvertureDto=HoraireOvertureDto.builder()
-                .dayOfWeek(DayOfWeek.LUNDI)
-                .openingTimeList(List.of(openingTimeDto))
-                .build();
-       GarageDto garageDto=GarageDto.builder()
-                .telephone("0584857596")
-                .email("test@gmail.com")
-                .address(adresseDto)
-                .name("garage 1")
-                .horaireOvertureList(List.of(horaireOvertureDto))
-                .build();
-
-        vehiculeDto=VehiculeDto.builder()
-                .model("2015")
-                .brand("Mercedess")
-                .anneeFabrication("2012")
-                .typeCarburant(TypeCarburant.DIESEL)
-                .garage(garageDto)
-                .build();
+    void setUp()  {
+        vehiculeDto=generateVehiculeDto();
     }
     @Test
     void create_garage_success() throws Exception {
         String vehiculeDtoJson=objectMapper.writeValueAsString(vehiculeDto);
-        doNothing().when(vehiculeService).createVehicule(any(VehiculeDto.class));
+        when(vehiculeService.createVehicule(any(VehiculeDto.class))).thenReturn(vehiculeDto);
         mockMvc.perform(post("/vehicule/v1/create").contentType(MediaType.APPLICATION_JSON).content(vehiculeDtoJson)).andExpect(status().isCreated());
         verify(vehiculeService,times(1)).createVehicule(any(VehiculeDto.class));
 
