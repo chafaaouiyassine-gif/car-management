@@ -53,7 +53,6 @@ public class VehiculeServiceImp implements VehiculeService {
             Vehicule vehiculeToSave=vehiculeMapper.fromDto(vehiculeDto);
             vehiculeToSave.setGarage(garage);
             vehiculeRepository.save(vehiculeToSave);
-            garage.setCountVehicule(garage.getCountVehicule()+1);
             vehiculeProducer.sendVehicule(vehiculeToSave);
             return vehiculeMapper.toDto(vehiculeToSave);
         }else
