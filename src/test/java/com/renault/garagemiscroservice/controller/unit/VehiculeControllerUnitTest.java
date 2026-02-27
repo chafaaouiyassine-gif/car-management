@@ -35,7 +35,7 @@ class VehiculeControllerUnitTest {
         vehiculeDto=generateVehiculeDto();
     }
     @Test
-    void create_garage_success() throws Exception {
+    void create_vehicule_success() throws Exception {
         String vehiculeDtoJson=objectMapper.writeValueAsString(vehiculeDto);
         when(vehiculeService.createVehicule(any(VehiculeDto.class))).thenReturn(vehiculeDto);
         mockMvc.perform(post("/vehicule/v1/create").contentType(MediaType.APPLICATION_JSON).content(vehiculeDtoJson)).andExpect(status().isCreated());
@@ -43,7 +43,7 @@ class VehiculeControllerUnitTest {
 
     }
     @Test
-    void update_garage_success() throws Exception {
+    void update_vehicule_success() throws Exception {
         String vehiculeDtoJson=objectMapper.writeValueAsString(vehiculeDto);
         doNothing().when(vehiculeService).updateVehicule(any(VehiculeDto.class));
         mockMvc.perform(put("/vehicule/v1/update").contentType(MediaType.APPLICATION_JSON).content(vehiculeDtoJson)).andExpect(status().isOk());

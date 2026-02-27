@@ -39,7 +39,7 @@ public class VehiculeController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteVehicule(@RequestParam @Valid Integer id) throws EntityNotFoundException, ArgumentNotValidException {
         vehiculeService.deleteVehicule(id);
-        return ResponseEntity.status(HttpStatus.OK).body(UPDATE_VEHICULE_MESSAGE);
+        return ResponseEntity.status(HttpStatus.OK).body(DELETE_VEHICULE_MESSAGE);
     }
 
     @GetMapping("/by_garage")
